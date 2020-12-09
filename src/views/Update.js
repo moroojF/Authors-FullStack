@@ -16,9 +16,13 @@ export default props => {
 
     const myUpdate = author => {
         axios.put("http://localhost:8000/api/author/update/" + props.id, author)
-        .then(res => {
-            navigate("/" + props.id)
-        })
+            .then(res => {
+                if (res.data.errors) {
+                    setErrors(res.data.errors);
+                } else {
+                    navigate("/" + props.id)
+                }
+            })
             .catch(err => {
                 const errorResponse = err.response.data.errors; // Get the errors from err.response.data
                 const errorArr = []; // Define a temp error array to push the messages incopy
@@ -31,6 +35,6 @@ export default props => {
     }
 
     return (
-        <AddForm onSubmitProp={myUpdate} initialName={author.name} action="Update" errors={errors}/>
+        <AddForm onSubmitProp={myUpdate} initialName={author.name} action="Update" errors={errors} />
     )
 }

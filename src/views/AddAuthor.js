@@ -17,7 +17,11 @@ export default props => {
     const myCreate = author => {
         axios.post("http://localhost:8000/api/author/new/", author)
             .then(res => {
-                navigate("/" + res.data.author._id)
+                if (res.data.errors) {
+                    setErrors(res.data.errors);
+                } else {
+                    navigate("/" + res.data.author._id)
+                }
             })
             .catch(err => {
                 const errorResponse = err.response.data.errors; // Get the errors from err.response.data
@@ -31,6 +35,6 @@ export default props => {
     }
 
     return (
-        <AddForm onSubmitProp={myCreate} initialName="" action="Create" errors={errors}/>
+        <AddForm onSubmitProp={myCreate} initialName="" action="Create" errors={errors} />
     )
 }

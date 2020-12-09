@@ -23,10 +23,10 @@ const AddForm = props => {
                         <h4 className="card-title">{action} Author</h4>
                         <div className="card-text">
                             <form onSubmit={myCreate}>
-                                {errors.map((err, index) => <p key={index}>{err}</p>)}
                                 <div className="form-grpup">
                                     <label>Name:</label>
                                     <input type="text" className="form-control" onChange={e => setName(e.target.value)} defaultValue={initialName} />
+                                    <p className="text-danger">{errors.name ? errors.name.message: ''}</p>
                                 </div>
                                 <div className="card-footer text-center">
                                     <div className="btn-group">
